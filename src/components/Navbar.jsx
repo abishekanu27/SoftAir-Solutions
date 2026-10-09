@@ -2,16 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 export default function Navbar({ onNavigate }) {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Lock body scroll and listen for Escape key when mobile menu is open
   useEffect(() => {
@@ -68,8 +59,8 @@ export default function Navbar({ onNavigate }) {
         <a href="#products" onClick={closeMobile}>Explore Products &rarr;</a>
       </div>
 
-      {/* Floating Modern Header */}
-      <header className={`site-header ${scrolled ? 'scrolled' : ''}`}>
+      {/* Static Modern Header */}
+      <header className="site-header">
         <div className="navbar">
           <a href="#main" className="brand-logo-wrap" aria-label="SoftAir Solutions Home" onClick={closeMobile}>
             <img 
