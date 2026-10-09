@@ -238,13 +238,13 @@ export default function ContactSection({ formData, setFormData, onShowToast }) {
                   className="form-control"
                   required
                 >
-                  <optgroup label="🚀 Software Products (Demos & Licensing)">
-                    <option value="sfa">SoftAir SFA (Direct Sales & Orders Demo)</option>
-                    <option value="clinical">Clinical Software (Clinic Management Demo)</option>
-                    <option value="kot">KOT System (Kitchen Order Ticket Demo)</option>
-                    <option value="pos">Retail & Restaurant POS (Billing Demo)</option>
+                  <optgroup label="Software Products (Demos & Licensing)">
+                    <option value="sfa">SoftAir SFA</option>
+                    <option value="clinical">Clinical Software</option>
+                    <option value="kot">KOT System</option>
+                    <option value="pos">Retail & Restaurant POS</option>
                   </optgroup>
-                  <optgroup label="🛠️ Custom Engineering & IT Services">
+                  <optgroup label="Custom Engineering & IT Services">
                     <option value="web">Web Application Development</option>
                     <option value="mobile">Mobile Application Development</option>
                     <option value="custom">Custom Application Software</option>
@@ -263,11 +263,12 @@ export default function ContactSection({ formData, setFormData, onShowToast }) {
                 onChange={handleChange}
                 className="form-control"
               >
+                <option value="tier5">Custom</option>
                 <option value="tier1">₹25,000 – ₹50,000</option>
                 <option value="tier2">₹50,000 – ₹1,00,000</option>
                 <option value="tier3">₹1,00,000 – ₹2,50,000</option>
                 <option value="tier4">₹2,50,000+</option>
-                <option value="tier5">Custom</option>
+                
               </select>
             </div>
 
