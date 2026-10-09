@@ -7,10 +7,12 @@ export default function ServiceModal({ service, onClose, onApplyToContact }) {
     };
     if (service) {
       document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
       window.addEventListener('keydown', handleKeyDown);
     }
     return () => {
       document.body.style.overflow = '';
+      document.body.classList.remove('modal-open');
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [service, onClose]);
@@ -31,26 +33,26 @@ export default function ServiceModal({ service, onClose, onApplyToContact }) {
           &times;
         </button>
 
-        <div style={{ display: 'inline-block', fontSize: '0.75rem', color: 'var(--cyan)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-          Technical Architecture & Deliverables
+        <div style={{ display: 'inline-block', fontSize: '0.75rem', color: 'var(--primary)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+          Technical Specifications & Deliverables
         </div>
 
         <h3 style={{ fontSize: '1.6rem', marginBottom: '0.75rem' }}>
           {service.title}
         </h3>
 
-        <p style={{ fontSize: '0.95rem', marginBottom: '1.5rem', lineHeight: '1.6' }}>
+        <p style={{ fontSize: '0.95rem', marginBottom: '1.5rem', lineHeight: '1.6', color: 'var(--text-muted)' }}>
           {service.description}
         </p>
 
         <div style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.75rem', color: 'var(--text-main)' }}>
-          Core Architecture Deliverables:
+          Core Service Deliverables:
         </div>
 
         <ul style={{ marginBottom: '1.5rem', listStyle: 'none' }}>
           {service.deliverables.map((item, idx) => (
             <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
-              <span style={{ color: 'var(--cyan)', fontWeight: 'bold' }}>✓</span>
+              <span style={{ color: 'var(--primary)', fontWeight: 'bold' }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -60,7 +62,7 @@ export default function ServiceModal({ service, onClose, onApplyToContact }) {
           <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-dim)', textTransform: 'uppercase', display: 'block', marginBottom: '0.25rem' }}>
             Technology Stack:
           </span>
-          <span style={{ fontSize: '0.88rem', color: 'var(--cyan)', fontWeight: 600 }}>
+          <span style={{ fontSize: '0.88rem', color: 'var(--primary)', fontWeight: 600 }}>
             {service.tech}
           </span>
         </div>
@@ -73,7 +75,7 @@ export default function ServiceModal({ service, onClose, onApplyToContact }) {
             onClose();
           }}
         >
-          Discuss This Architecture With Our Team &rarr;
+          Discuss This Solution With Our Team &rarr;
         </button>
       </div>
     </div>

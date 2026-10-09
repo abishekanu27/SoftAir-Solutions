@@ -2,34 +2,34 @@ import React from 'react';
 
 const cases = [
   {
-    category: 'FinTech & Payments',
-    title: 'High-Frequency Transaction Gateway',
-    description: 'Engineered a distributed microservices gateway handling 15,000+ financial transactions per second with PCI-DSS compliance.',
-    metric1: '14ms',
-    label1: 'Global p99 Latency',
-    metric2: '99.999%',
-    label2: 'Uptime Verified',
-    tech: 'Go, Kafka, AWS EKS, Redis Cluster, Terraform'
+    category: 'Enterprise Web Platform',
+    title: 'Custom B2B Billing & Client Portal',
+    description: 'Engineered a high-performance web platform featuring automated invoicing, real-time client management, and dynamic reporting dashboards.',
+    metric1: '3.8x',
+    label1: 'Faster Portal Loading',
+    metric2: '99.99%',
+    label2: 'Platform Availability',
+    tech: 'React, Next.js, Node.js, PostgreSQL, REST APIs'
   },
   {
-    category: 'HealthTech',
-    title: 'HIPAA-Compliant Patient Care Platform',
-    description: 'Unified electronic medical records, real-time telehealth video, and predictive scheduling for over 500k active patients.',
-    metric1: '4.2x',
-    label1: 'Faster Consultations',
-    metric2: '100%',
-    label2: 'Audit Compliance',
-    tech: 'Next.js, Node.js, WebRTC, PostgreSQL, Azure'
+    category: 'Mobile Application',
+    title: 'Cross-Platform Patient Care & Scheduling App',
+    description: 'Developed an intuitive iOS & Android app for appointment bookings, real-time doctor messaging, and offline consultation history.',
+    metric1: '4.8★',
+    label1: 'App Store Rating',
+    metric2: '120k+',
+    label2: 'Active Mobile Users',
+    tech: 'Flutter, React Native, Firebase, Node.js'
   },
   {
-    category: 'Global Logistics',
-    title: 'AI-Powered Fleet Route Optimization',
-    description: 'Real-time vehicle telemetry, dynamic rerouting using predictive algorithms, and automated warehouse dispatch sync.',
-    metric1: '-28%',
-    label1: 'Fuel Cost Reduction',
-    metric2: '2.4M',
-    label2: 'Daily Telemetry Pings',
-    tech: 'Python, PyTorch, Flutter, GCP, IoT Core'
+    category: 'Custom Software & IT Services',
+    title: 'Warehouse Operations & Managed IT Infrastructure',
+    description: 'Designed a bespoke inventory management application with barcode tracking alongside 24/7 server monitoring and IT support.',
+    metric1: '-40%',
+    label1: 'Order Processing Time',
+    metric2: '24/7',
+    label2: 'Guaranteed IT Support SLA',
+    tech: 'TypeScript, MySQL, Express, Linux Administration'
   }
 ];
 
@@ -43,7 +43,7 @@ export default function CaseStudies() {
             Real World <span className="gradient-text">Transformation Stories</span>
           </h2>
           <p className="section-subtitle">
-            How SoftAir Solutions accelerates delivery velocity and unlocks exponential scalability for market leaders.
+            How SoftAir Solutions delivers high-impact web apps, mobile solutions, custom software, and dependable IT services.
           </p>
         </div>
 

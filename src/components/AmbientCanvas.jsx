@@ -44,7 +44,7 @@ export default function AmbientCanvas() {
         this.size = Math.random() * 2 + 1;
         this.speedX = (Math.random() - 0.5) * 0.7;
         this.speedY = (Math.random() - 0.5) * 0.7;
-        this.color = Math.random() > 0.5 ? '#00d2ff' : '#0066ff';
+        this.color = Math.random() > 0.5 ? '#00b4d8' : '#0062eb';
       }
 
       update() {
@@ -72,7 +72,7 @@ export default function AmbientCanvas() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
-        ctx.globalAlpha = 0.55;
+        ctx.globalAlpha = 0.45;
         ctx.fill();
       }
     }
@@ -96,8 +96,8 @@ export default function AmbientCanvas() {
             ctx.beginPath();
             ctx.moveTo(particles[a].x, particles[a].y);
             ctx.lineTo(particles[b].x, particles[b].y);
-            ctx.strokeStyle = '#00d2ff';
-            ctx.globalAlpha = alpha * 0.15;
+            ctx.strokeStyle = '#0062eb';
+            ctx.globalAlpha = alpha * 0.12;
             ctx.lineWidth = 1;
             ctx.stroke();
           }

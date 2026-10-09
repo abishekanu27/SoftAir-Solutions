@@ -2,19 +2,19 @@ import React from 'react';
 
 const testimonials = [
   {
-    quote: "SoftAir Solutions completely re-architected our legacy cloud backend into a Kubernetes GitOps pipeline within 8 weeks. Our deployment frequency increased tenfold and our cloud expenditure dropped 35%.",
+    quote: "SoftAir Solutions engineered our flagship web portal and cross-platform mobile app in under 10 weeks. Our active user engagement grew fourfold and system reliability has been rock-solid.",
     author: "Marcus Reynolds",
     role: "Chief Technology Officer, PayStream",
     initials: "MR"
   },
   {
-    quote: "Their team embodies their motto: Imagine, Innovate, Transform. They didn't just write code; they sat with our product managers and redesigned our AI workflow from the ground up.",
+    quote: "Their team embodies their motto: Imagine, Innovate, Transform. They took time to understand our complex clinical workflows and built a custom patient management application that our staff loves.",
     author: "Dr. Sophia Chen",
-    role: "VP of Product, MediHealth AI",
+    role: "VP of Digital Operations, MediHealth",
     initials: "SC"
   },
   {
-    quote: "Working with SoftAir felt like having our own elite Silicon Valley engineering pod. Transparent sprint reviews, impeccable documentation, and zero technical debt. Truly best-in-class.",
+    quote: "SoftAir provides both stellar custom development and responsive IT support services. Clear sprint updates, clean documentation, and dependable SLA maintenance. An outstanding technical partner.",
     author: "Devon Kumar",
     role: "Founder & Managing Director, LogiVibe",
     initials: "DK"

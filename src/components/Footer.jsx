@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function Footer({ theme, onShowToast }) {
+export default function Footer({ onShowToast, onOpenLegal, onNavigate }) {
   const [email, setEmail] = useState('');
 
   const handleNewsletter = (e) => {
@@ -11,9 +11,15 @@ export default function Footer({ theme, onShowToast }) {
     }
   };
 
-  const logoSrc = theme === 'dark' 
-    ? '/assets/images/logo-full-darkmode.png' 
-    : '/assets/images/logo-full.png';
+  const handleLegalClick = (e, docId) => {
+    e.preventDefault();
+    if (onOpenLegal) {
+      onOpenLegal(docId);
+    }
+    window.location.hash = docId;
+  };
+
+  const logoSrc = '/assets/images/logo-full.png';
 
   return (
     <footer className="site-footer">
@@ -27,47 +33,72 @@ export default function Footer({ theme, onShowToast }) {
               style={{ height: '48px' }} 
             />
             <p>
-              SoftAir Solutions Pvt Ltd is an enterprise technology powerhouse delivering cutting-edge cloud infrastructure, bespoke software, and cognitive digital transformation globally.
+              SoftAir Solutions Pvt Ltd specializes in scalable web development, cross-platform mobile apps, custom software platforms, and dependable enterprise IT services.
             </p>
             <div style={{ display: 'flex', gap: '0.75rem' }}>
-              <a href="#hero" className="btn btn-secondary btn-sm" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>IMAGINE</a>
-              <a href="#hero" className="btn btn-secondary btn-sm" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>INNOVATE</a>
-              <a href="#hero" className="btn btn-secondary btn-sm" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>TRANSFORM</a>
+              <a href="#motto" className="btn btn-secondary btn-sm" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>IMAGINE</a>
+              <a href="#motto" className="btn btn-secondary btn-sm" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>INNOVATE</a>
+              <a href="#motto" className="btn btn-secondary btn-sm" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>TRANSFORM</a>
             </div>
           </div>
 
           <div className="footer-col">
-            <h4>Capabilities</h4>
+            <h4>Software Products</h4>
             <div className="footer-links">
-              <a href="#services">Cloud Architecture</a>
-              <a href="#services">Enterprise Software</a>
-              <a href="#services">Cognitive AI Solutions</a>
-              <a href="#services">Mobile Applications</a>
-              <a href="#services">Data Modernization</a>
-              <a href="#services">Zero-Trust Security</a>
+              <a href="#products">SoftAir SFA (Sales & Orders)</a>
+              <a href="#products">Clinical Healthcare Software</a>
+              <a href="#products">KOT Kitchen Order System</a>
+              <a href="#products">Retail & Restaurant POS</a>
+              <a href="#services">Custom Web & Mobile Apps</a>
+              <a href="#services">Dedicated IT Services</a>
             </div>
           </div>
 
           <div className="footer-col">
-            <h4>Company</h4>
+            <h4>Company & Contact</h4>
             <div className="footer-links">
-              <a href="#pillars">About SoftAir</a>
-              <a href="#cases">Impact & Case Studies</a>
-              <a href="#estimator">Cost Estimator</a>
-              <a href="#testimonials">Client Reviews</a>
-              <a href="#faq">FAQ</a>
-              <a href="#contact">Contact Careers</a>
+              <a href="#main">Home</a>
+              <a 
+                href="/about-us" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onNavigate) {
+                    onNavigate('/about-us');
+                  } else {
+                    window.location.href = '/about-us';
+                  }
+                }}
+              >
+                About Us
+              </a>
+              <a href="#products">Our Products</a>
+              <a 
+                href="/faq" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onNavigate) {
+                    onNavigate('/faq');
+                  } else {
+                    window.location.href = '/faq';
+                  }
+                }}
+              >
+                FAQ
+              </a>
+              <a href="mailto:info@softair.co.in">info@softair.co.in</a>
+              <a href="tel:+917012751254">+91 70127 51254 <br></br>+91 77366 40292</a>
+              <a href="https://maps.app.goo.gl/H1YdfNmCzfuRGkXR7" target="_blank" rel="noopener noreferrer">Palakkad, Kerala ↗</a>
             </div>
           </div>
 
           <div className="footer-col footer-newsletter">
             <h4>Tech Intelligence</h4>
-            <p>Subscribe to our monthly engineering digest covering multi-cloud patterns, AI architectures, and DevOps.</p>
+            <p>Subscribe to our monthly engineering digest covering modern web frameworks, mobile strategies, and IT insights.</p>
             <form onSubmit={handleNewsletter} className="newsletter-form">
               <input 
                 type="email" 
                 placeholder="Your work email" 
-                value={email}
+                value={email} 
                 onChange={(e) => setEmail(e.target.value)}
                 required 
               />
@@ -80,11 +111,46 @@ export default function Footer({ theme, onShowToast }) {
           <div>
             &copy; {new Date().getFullYear()} SoftAir Solutions Pvt Ltd. All rights reserved. Registered Enterprise.
           </div>
-          <div style={{ display: 'flex', gap: '1.5rem' }}>
-            <a href="#contact">Privacy Policy</a>
-            <a href="#contact">Terms of Service</a>
-            <a href="#contact">Security Standards</a>
-            <a href="#contact">ISO/IEC 27001</a>
+          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+            <a 
+              href="/privacy-policy" 
+              onClick={(e) => {
+                e.preventDefault();
+                if (onNavigate) {
+                  onNavigate('/privacy-policy');
+                } else {
+                  window.location.href = '/privacy-policy';
+                }
+              }}
+            >
+              Privacy Policy
+            </a>
+            <a 
+              href="/terms-of-service" 
+              onClick={(e) => {
+                e.preventDefault();
+                if (onNavigate) {
+                  onNavigate('/terms-of-service');
+                } else {
+                  window.location.href = '/terms-of-service';
+                }
+              }}
+            >
+              Terms of Service
+            </a>
+            <a 
+              href="/security-standards" 
+              onClick={(e) => {
+                e.preventDefault();
+                if (onNavigate) {
+                  onNavigate('/security-standards');
+                } else {
+                  window.location.href = '/security-standards';
+                }
+              }}
+            >
+              Security Standards
+            </a>
           </div>
         </div>
       </div>

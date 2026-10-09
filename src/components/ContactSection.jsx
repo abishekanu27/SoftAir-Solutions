@@ -1,29 +1,97 @@
 import React, { useState } from 'react';
 
+const SERVICE_LABELS = {
+  sfa: 'SoftAir SFA (Direct Sales & Orders)',
+  clinical: 'Clinical Software (Clinic Management)',
+  kot: 'KOT System (Kitchen Order Ticket & KDS)',
+  pos: 'Retail & Restaurant POS (Point of Sale)',
+  web: 'Web Application Development',
+  mobile: 'Mobile Application Development',
+  custom: 'Custom Application Software',
+  itservices: 'IT Services & Technical Support'
+};
+
+const BUDGET_LABELS = {
+  tier1: '₹25,000 – ₹50,000',
+  tier2: '₹50,000 – ₹1,00,000',
+  tier3: '₹1,00,000 – ₹2,50,000',
+  tier4: '₹2,50,000+',
+  tier5: 'Custom'
+};
+
 export default function ContactSection({ formData, setFormData, onShowToast }) {
   const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
+    setSubmitStatus(null);
 
-    setTimeout(() => {
-      setSubmitting(false);
-      onShowToast('Thank you! Your discovery request has been received. A principal architect will contact you within 2 business hours.');
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        service: 'cloud',
-        budget: 'tier2',
-        message: ''
+    const serviceName = SERVICE_LABELS[formData.service] || formData.service;
+    const budgetName = BUDGET_LABELS[formData.budget] || formData.budget;
+
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone || 'Not specified',
+      service: serviceName,
+      budget: budgetName,
+      message: formData.message || 'No additional scope notes provided.',
+      _subject: `New Technical Discovery Call: ${formData.name} (${serviceName})`,
+      _template: 'table',
+      _captcha: 'false'
+    };
+
+    try {
+      // Direct POST to formsubmit.co which routes straight to info@softair.co.in
+      const res = await fetch('https://formsubmit.co/ajax/info@softair.co.in', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
       });
-    }, 1200);
+
+      if (res.ok) {
+        setSubmitStatus('success');
+        onShowToast('Discovery request transmitted to info@softair.co.in! We will connect within 2 hours.');
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          service: 'web',
+          budget: 'tier2',
+          message: ''
+        });
+      } else {
+        throw new Error('API response not ok');
+      }
+    } catch (err) {
+      // Fallback: open user's email client directly targeted at info@softair.co.in
+      const mailtoSubject = encodeURIComponent(`Discovery Call Request: ${formData.name} - ${serviceName}`);
+      const mailtoBody = encodeURIComponent(
+        `Dear SoftAir Solutions Team,\n\nI would like to request a technical discovery call:\n\n` +
+        `• Name: ${formData.name}\n` +
+        `• Email: ${formData.email}\n` +
+        `• Phone: ${formData.phone || 'N/A'}\n` +
+        `• Service: ${serviceName}\n` +
+        `• Estimated Budget: ${budgetName}\n\n` +
+        `Project Scope & Requirements:\n${formData.message || 'N/A'}\n\n` +
+        `Looking forward to hearing from you!`
+      );
+      window.location.href = `mailto:info@softair.co.in?subject=${mailtoSubject}&body=${mailtoBody}`;
+      setSubmitStatus('fallback');
+      onShowToast('Opening email client to dispatch request to info@softair.co.in');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -37,7 +105,7 @@ export default function ContactSection({ formData, setFormData, onShowToast }) {
             <span className="gradient-text">Exceptional Together</span>
           </h2>
           <p>
-            Whether you are modernizing legacy infrastructure, building an AI-powered SaaS, or expanding to multi-cloud, our principal architects are ready to guide you.
+            Whether you need a high-performance web platform, an intuitive mobile app, bespoke custom software, or dependable IT services, our technical team in Kerala is ready to assist you.
           </p>
 
           <div className="contact-channels">
@@ -50,7 +118,9 @@ export default function ContactSection({ formData, setFormData, onShowToast }) {
               </div>
               <div className="channel-text">
                 <strong>Email Inquiries</strong>
-                <a href="mailto:contact@softairsolutions.com">contact@softairsolutions.com</a>
+                <a href="mailto:info@softair.co.in" style={{ color: 'var(--primary)', fontWeight: 600 }}>
+                  info@softair.co.in
+                </a>
               </div>
             </div>
 
@@ -62,7 +132,15 @@ export default function ContactSection({ formData, setFormData, onShowToast }) {
               </div>
               <div className="channel-text">
                 <strong>Direct Advisory Desk</strong>
-                <span>+91 (0) 80 4123 4567 / Global: +1 (800) SOFITAIR</span>
+                <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                  <a href="tel:+917012751254" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontWeight: 600 }}>
+                    +91 70127 51254
+                  </a>
+                  <span style={{ color: 'var(--text-muted)' }}>/</span>
+                  <a href="tel:+917736640292" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontWeight: 600 }}>
+                    +91 77366 40292
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -74,18 +152,26 @@ export default function ContactSection({ formData, setFormData, onShowToast }) {
                 </svg>
               </div>
               <div className="channel-text">
-                <strong>SoftAir Solutions Pvt Ltd Headquarters</strong>
-                <span>Technology Innovation Park, Global Tech Hub</span>
+                <strong>Office Location</strong>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Palakkad, Kerala, India</span>
+                <a 
+                  href="https://maps.app.goo.gl/H1YdfNmCzfuRGkXR7" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ color: 'var(--primary)', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '4px', marginTop: '4px', textDecoration: 'none', fontWeight: 500 }}
+                >
+                  <span>📍 View Location on Google Maps</span> &rarr;
+                </a>
               </div>
             </div>
           </div>
 
-          <div style={{ background: 'rgba(0, 210, 255, 0.08)', border: '1px solid var(--border-accent)', borderRadius: 'var(--radius-md)', padding: '1rem 1.25rem' }}>
+          <div style={{ background: 'rgba(0, 210, 255, 0.08)', border: '1px solid var(--border-accent)', borderRadius: 'var(--radius-md)', padding: '1rem 1.25rem', marginTop: '1.5rem' }}>
             <strong style={{ color: 'var(--cyan)', fontSize: '0.9rem', display: 'block', marginBottom: '0.25rem' }}>
               ⚡ Rapid Response Guarantee
             </strong>
             <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-              All inbound client inquiries receive a dedicated technical architect response within 2 business hours.
+              All inbound client inquiries receive a dedicated technical response within 2 business hours directly from our engineering desk.
             </span>
           </div>
         </div>
@@ -95,8 +181,8 @@ export default function ContactSection({ formData, setFormData, onShowToast }) {
           <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>
             Request a Technical Discovery Call
           </h3>
-          <p style={{ fontSize: '0.9rem', marginBottom: '1.75rem' }}>
-            Complete the details below to receive architectural insights and estimate validation.
+          <p style={{ fontSize: '0.9rem', marginBottom: '1.75rem', color: 'var(--text-muted)' }}>
+            Complete the details below to receive architectural insights and project estimates directly from our team.
           </p>
 
           <form onSubmit={handleSubmit}>
@@ -110,12 +196,12 @@ export default function ContactSection({ formData, setFormData, onShowToast }) {
                   value={formData.name}
                   onChange={handleChange}
                   className="form-control"
-                  placeholder="e.g. Alex Henderson"
+                  placeholder="e.g. Rahul Menon"
                   required
                 />
               </div>
               <div className="form-group">
-                <label className="form-label" htmlFor="contact-email">Business Email *</label>
+                <label className="form-label" htmlFor="contact-email">Email Address *</label>
                 <input
                   type="email"
                   id="contact-email"
@@ -123,7 +209,7 @@ export default function ContactSection({ formData, setFormData, onShowToast }) {
                   value={formData.email}
                   onChange={handleChange}
                   className="form-control"
-                  placeholder="alex@company.com"
+                  placeholder="name@company.com"
                   required
                 />
               </div>
@@ -139,7 +225,7 @@ export default function ContactSection({ formData, setFormData, onShowToast }) {
                   value={formData.phone}
                   onChange={handleChange}
                   className="form-control"
-                  placeholder="+1 (555) 000-0000"
+                  placeholder="+91 70127 51254"
                 />
               </div>
               <div className="form-group">
@@ -152,13 +238,18 @@ export default function ContactSection({ formData, setFormData, onShowToast }) {
                   className="form-control"
                   required
                 >
-                  <option value="cloud">Cloud Architecture & DevOps</option>
-                  <option value="software">Enterprise Custom Software</option>
-                  <option value="ai">AI & Intelligent Automation</option>
-                  <option value="mobile">Mobile & Cross-Platform Apps</option>
-                  <option value="data">Data Engineering & Analytics</option>
-                  <option value="security">Cybersecurity & Compliance</option>
-                  <option value="suite">Full Enterprise Transformation</option>
+                  <optgroup label="🚀 Software Products (Demos & Licensing)">
+                    <option value="sfa">SoftAir SFA (Direct Sales & Orders Demo)</option>
+                    <option value="clinical">Clinical Software (Clinic Management Demo)</option>
+                    <option value="kot">KOT System (Kitchen Order Ticket Demo)</option>
+                    <option value="pos">Retail & Restaurant POS (Billing Demo)</option>
+                  </optgroup>
+                  <optgroup label="🛠️ Custom Engineering & IT Services">
+                    <option value="web">Web Application Development</option>
+                    <option value="mobile">Mobile Application Development</option>
+                    <option value="custom">Custom Application Software</option>
+                    <option value="itservices">IT Services & Technical Support</option>
+                  </optgroup>
                 </select>
               </div>
             </div>
@@ -172,31 +263,44 @@ export default function ContactSection({ formData, setFormData, onShowToast }) {
                 onChange={handleChange}
                 className="form-control"
               >
-                <option value="tier1">$10k – $25k</option>
-                <option value="tier2">$25k – $50k</option>
-                <option value="tier3">$50k – $100k</option>
-                <option value="tier4">$100k+</option>
+                <option value="tier1">₹25,000 – ₹50,000</option>
+                <option value="tier2">₹50,000 – ₹1,00,000</option>
+                <option value="tier3">₹1,00,000 – ₹2,50,000</option>
+                <option value="tier4">₹2,50,000+</option>
+                <option value="tier5">Custom</option>
               </select>
             </div>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="contact-message">Project Scope & Architectural Details</label>
+              <label className="form-label" htmlFor="contact-message">Project Scope & Requirements</label>
               <textarea
                 id="contact-message"
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
                 className="form-control"
-                placeholder="Tell us about your business goals, target timelines, and current tech stack..."
+                placeholder="Tell us about your project goals, timelines, or specific IT service needs..."
+                rows={4}
               ></textarea>
             </div>
 
-            <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%' }} disabled={submitting}>
-              <span>{submitting ? 'Transmitting Request...' : 'Submit Discovery Request →'}</span>
+            <button 
+              type="submit" 
+              className="btn btn-primary btn-lg" 
+              style={{ width: '100%' }} 
+              disabled={submitting}
+            >
+              <span>{submitting ? 'Transmitting Request to info@softair.co.in...' : 'Request a Technical Discovery Call →'}</span>
             </button>
+            {submitStatus === 'success' && (
+              <div style={{ marginTop: '1rem', padding: '0.85rem 1rem', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid #10b981', borderRadius: 'var(--radius-md)', color: '#047857', fontSize: '0.875rem' }}>
+                ✓ <strong>Request Sent Successfully!</strong> Your discovery request has been forwarded to <code>info@softair.co.in</code>. Our team will contact you within 2 business hours.
+              </div>
+            )}
           </form>
         </div>
       </div>
     </section>
   );
 }
+
