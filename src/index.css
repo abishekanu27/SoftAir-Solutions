@@ -174,26 +174,25 @@ button, input, select, textarea {
   margin-left: 0.35rem;
 }
 
-/* Static Header & Nav */
+/* Sticky Header & Nav — Always on top while scrolling */
 .site-header {
-  position: relative;
-  z-index: 100;
-  max-width: 1220px;
-  width: calc(100% - 2.5rem);
-  margin: 1rem auto 1.5rem auto;
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.95);
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(0, 40, 100, 0.09);
-  box-shadow: 
-    0 10px 30px -5px rgba(0, 30, 80, 0.07),
-    0 0 0 1px rgba(255, 255, 255, 0.9) inset;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-bottom: 1px solid rgba(0, 40, 100, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 30, 80, 0.05);
+  transition: all 0.25s ease;
 }
 
 .site-header.scrolled {
   background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 6px 24px rgba(0, 30, 80, 0.1);
 }
 
 .navbar {
@@ -201,6 +200,8 @@ button, input, select, textarea {
   align-items: center;
   justify-content: space-between;
   height: 68px;
+  max-width: 1240px;
+  margin: 0 auto;
   padding: 0 1.5rem;
 }
 
@@ -2129,7 +2130,7 @@ textarea.form-control {
   html, body, #root, .app-root, main {
     width: 100% !important;
     max-width: 100% !important;
-    overflow-x: hidden !important;
+    overflow-x: clip !important;
   }
 
   .container {
@@ -2145,22 +2146,23 @@ textarea.form-control {
 
   .site-header,
   .site-header.scrolled {
-    position: relative !important;
+    position: sticky !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
     border-radius: 0 0 16px 16px !important;
     border-left: none !important;
     border-right: none !important;
     border-top: none !important;
+    border-bottom: 1px solid rgba(0, 40, 100, 0.08) !important;
     background: rgba(255, 255, 255, 0.98) !important;
     backdrop-filter: blur(20px) saturate(180%) !important;
     -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
     box-shadow: 0 4px 20px rgba(0, 30, 80, 0.08) !important;
-    z-index: 100 !important;
+    z-index: 1000 !important;
   }
 
   .navbar {
@@ -2389,12 +2391,14 @@ textarea.form-control {
 }
 
 .policy-header-bar {
-  background: var(--bg-surface-elevated);
+  background: rgba(255, 255, 255, 0.98);
   border-bottom: 1px solid var(--border-subtle);
-  position: relative;
-  z-index: 100;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
 .policy-header-content {
