@@ -130,10 +130,10 @@ export default function ThreeHeroSphere() {
 
     // 9. Animation Loop
     let animationId;
-    const clock = new THREE.Clock();
+    const startTime = performance.now();
 
-    const animate = () => {
-      const elapsedTime = clock.getElapsedTime();
+    const animate = (time = performance.now()) => {
+      const elapsedTime = (time - startTime) * 0.001;
 
       // Continuous 3D rotation of the sphere
       mainSphere.rotation.y = elapsedTime * 0.35;
