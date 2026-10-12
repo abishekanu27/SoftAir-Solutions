@@ -2,108 +2,95 @@ import React, { useState, useEffect } from 'react';
 import './index.css';
 import './App.css';
 import BackgroundCanvas from './components/BackgroundCanvas';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import TeaserCards from './components/TeaserCards';
-import Roadmap from './components/Roadmap';
-import FaqSection from './components/FaqSection';
-import CustomizeModal from './components/CustomizeModal';
-import Footer from './components/Footer';
 
-// Target Launch Date: January 1, 2027
-const getInitialTargetDate = () => {
-  return '2027-01-01T00:00:00';
-};
+const TARGET_DATE = new Date('2027-01-01T00:00:00').getTime();
 
 export default function App() {
-  const [companyName, setCompanyName] = useState('SoftAir Solutions Pvt Ltd');
-  const [description, setDescription] = useState(
-    'SoftAir Solutions Pvt Ltd is preparing to launch our full-service software company. Delivering bespoke custom software, modern web applications, native mobile apps (iOS & Android), and comprehensive enterprise IT services. Opening January 1, 2027.'
-  );
-  const [targetDate, setTargetDate] = useState(getInitialTargetDate());
-  const [currentTheme, setCurrentTheme] = useState('default');
-  const [isCustomizeOpen, setIsCustomizeOpen] = useState(false);
-  const [subscriberCount, setSubscriberCount] = useState(1482);
+  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
 
-  // Apply theme dataset to HTML root
+  function calculateTimeLeft() {
+    const now = Date.now();
+    const difference = TARGET_DATE - now;
+
+    if (difference <= 0) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    }
+
+    return {
+      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((difference / 1000 / 60) % 60),
+      seconds: Math.floor((difference / 1000) % 60),
+    };
+  }
+
   useEffect(() => {
-    if (currentTheme === 'default') {
-      document.documentElement.removeAttribute('data-theme');
-    } else {
-      document.documentElement.setAttribute('data-theme', currentTheme);
-    }
-  }, [currentTheme]);
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
 
-  const handleResetDefaults = () => {
-    setCompanyName('SoftAir Solutions Pvt Ltd');
-    setDescription(
-      'SoftAir Solutions Pvt Ltd is preparing to launch our full-service software company. Delivering bespoke custom software, modern web applications, native mobile apps (iOS & Android), and comprehensive enterprise IT services. Opening January 1, 2027.'
-    );
-    setTargetDate(getInitialTargetDate());
-    setCurrentTheme('default');
-  };
-
-  const handleScrollToSignup = () => {
-    const signupEl = document.getElementById('signup-area');
-    if (signupEl) {
-      signupEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      const emailInput = document.getElementById('email-subscribe-input');
-      if (emailInput) {
-        setTimeout(() => emailInput.focus(), 500);
-      }
-    }
-  };
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <div className="app-container">
-      {/* Dynamic Starfield & Ambient Glow Background */}
+    <div className="coming-soon-wrapper">
+      {/* Dynamic Ambient Background with Interactive Particles */}
       <BackgroundCanvas />
 
-      {/* Fixed/Sticky Glass Navbar */}
-      <Navbar 
-        companyName={companyName}
-        onOpenCustomize={() => setIsCustomizeOpen(true)}
-        onScrollToSignup={handleScrollToSignup}
-      />
+      {/* Centered Coming Soon Presentation */}
+      <main className="coming-soon-main">
+        <div className="coming-soon-glow-backdrop" aria-hidden="true" />
 
-      {/* Main Page Layout */}
-      <main className="main-content">
-        {/* Hero with Countdown & VIP Pass Box */}
-        <Hero
-          companyName={companyName}
-          description={description}
-          targetDate={targetDate}
-          subscriberCount={subscriberCount}
-          setSubscriberCount={setSubscriberCount}
-        />
+        <div className="coming-soon-card">
+          <h1 className="coming-soon-title">
+            We are coming soon to the world...!
+          </h1>
 
-        {/* Sneak Peek Teasers: What Will Release Soon */}
-        <TeaserCards companyName={companyName} />
+          {/* Countdown to Jan 01 2027 */}
+          <div className="countdown-container">
+            <div className="countdown-badge">
+              <span className="countdown-pulse-dot" />
+              <span>Target Launch &bull; Jan 01, 2027</span>
+            </div>
 
-        {/* Launch Roadmap / Stages */}
-        <Roadmap companyName={companyName} />
+            <div className="countdown-grid">
+              <div className="countdown-unit">
+                <div className="countdown-number">
+                  {String(timeLeft.days).padStart(2, '0')}
+                </div>
+                <div className="countdown-label">Days</div>
+              </div>
 
-        {/* FAQ Accordion */}
-        <FaqSection companyName={companyName} />
+              <span className="countdown-separator">:</span>
+
+              <div className="countdown-unit">
+                <div className="countdown-number">
+                  {String(timeLeft.hours).padStart(2, '0')}
+                </div>
+                <div className="countdown-label">Hours</div>
+              </div>
+
+              <span className="countdown-separator">:</span>
+
+              <div className="countdown-unit">
+                <div className="countdown-number">
+                  {String(timeLeft.minutes).padStart(2, '0')}
+                </div>
+                <div className="countdown-label">Minutes</div>
+              </div>
+
+              <span className="countdown-separator">:</span>
+
+              <div className="countdown-unit countdown-unit-seconds">
+                <div className="countdown-number">
+                  {String(timeLeft.seconds).padStart(2, '0')}
+                </div>
+                <div className="countdown-label">Seconds</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
-
-      {/* Footer */}
-      <Footer companyName={companyName} />
-
-      {/* Live Customization Drawer / Modal */}
-      <CustomizeModal
-        isOpen={isCustomizeOpen}
-        onClose={() => setIsCustomizeOpen(false)}
-        companyName={companyName}
-        setCompanyName={setCompanyName}
-        description={description}
-        setDescription={setDescription}
-        targetDate={targetDate}
-        setTargetDate={setTargetDate}
-        currentTheme={currentTheme}
-        setCurrentTheme={setCurrentTheme}
-        onResetDefaults={handleResetDefaults}
-      />
     </div>
   );
 }
