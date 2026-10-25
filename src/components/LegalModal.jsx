@@ -44,10 +44,10 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
       aria-modal="true"
     >
       <div className="legal-modal-container">
-        {/* Modal Top Header */}
-        <div className="legal-modal-header">
+        {/* Modal Top Header (Screen Only) */}
+        <div className="legal-modal-header no-print">
           <div>
-            <div className="legal-modal-badge">SoftAir Solutions Pvt Ltd · Legal & Governance</div>
+            <div className="legal-modal-badge">SoftAir Solutions · Legal & Governance</div>
             <h2 className="legal-modal-title">
               {activeDoc === 'privacy' && 'Privacy Policy'}
               {activeDoc === 'terms' && 'Terms of Service'}
@@ -58,11 +58,11 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <div className="no-print" style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
             <button 
               className="btn btn-secondary btn-sm" 
               onClick={handlePrint}
-              title="Print document"
+              title="Print document as clean PDF"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.8rem' }}
             >
               <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" strokeWidth="2">
@@ -70,7 +70,7 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
                 <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
                 <rect x="6" y="14" width="12" height="8"></rect>
               </svg>
-              <span>Print</span>
+              <span>Print / PDF</span>
             </button>
 
             <button 
@@ -84,8 +84,8 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
           </div>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="legal-tabs-bar">
+        {/* Tab Navigation (Screen Only) */}
+        <div className="legal-tabs-bar no-print">
           <button 
             className={`legal-tab-btn ${activeDoc === 'privacy' ? 'active' : ''}`}
             onClick={() => setActiveDoc('privacy')}
@@ -108,15 +108,41 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
 
         {/* Scrollable Document Content */}
         <div className="legal-modal-body">
+          {/* Printable Letterhead (Visible ONLY in print) */}
+          <div className="print-only-letterhead">
+            <div className="print-letterhead-top">
+              <div className="print-brand-col">
+                <div className="print-company-name">SOFTAIR SOLUTIONS</div>
+                <div className="print-company-tagline">Enterprise Software Architecture, Custom Applications & IT Services</div>
+                <div className="print-company-sub">Palakkad, Kerala, India · info@softair.co.in · +91 70127 51254 · softair.co.in</div>
+              </div>
+              <div className="print-meta-col">
+                <div><strong>Document:</strong> {activeDoc === 'privacy' ? 'Privacy Policy' : activeDoc === 'terms' ? 'Terms of Service' : 'Security Standards'}</div>
+                <div><strong>Effective Date:</strong> October 2026</div>
+                <div><strong>Entity:</strong> SoftAir Solutions</div>
+                <div><strong>Jurisdiction:</strong> Palakkad, Kerala, India</div>
+              </div>
+            </div>
+            <div className="print-letterhead-rule"></div>
+            <div className="print-title-banner">
+              <h1 className="print-doc-title">
+                {activeDoc === 'privacy' && 'OFFICIAL PRIVACY POLICY & DATA GOVERNANCE FRAMEWORK'}
+                {activeDoc === 'terms' && 'OFFICIAL TERMS OF SERVICE & ENGAGEMENT AGREEMENT'}
+                {(activeDoc === 'security' || activeDoc === 'iso') && 'ENTERPRISE SECURITY STANDARDS & COMPLIANCE PROTOCOLS'}
+              </h1>
+              <span className="print-compliance-seal">STATUTORY COMPLIANCE DOCUMENT</span>
+            </div>
+          </div>
+
           {activeDoc === 'privacy' && (
             <div className="legal-content-section">
               <div className="legal-highlight-box" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
                 <div>
-                  <strong>Official Policy:</strong> SoftAir Solutions respects your privacy and is committed to protecting personal data.
+                  <strong>Official Policy:</strong> SoftAir Solutions respects your privacy and is committed to protecting personal data. We do not sell personal data under any circumstances.
                 </div>
                 <a 
                   href="/privacy-policy" 
-                  className="btn btn-primary btn-sm" 
+                  className="btn btn-primary btn-sm no-print" 
                   onClick={() => closeModal()}
                   style={{ textDecoration: 'none', padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
                 >
@@ -126,7 +152,7 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
 
               <h3>1. Scope and Introduction</h3>
               <p>
-                This Privacy Policy outlines how <strong>SoftAir Solutions Pvt Ltd</strong> ("we", "our", or "Company"), located in Palakkad, Kerala, India, collects, uses, protects, and discloses information gathered through our official website and client communication channels.
+                This Privacy Policy outlines how <strong>SoftAir Solutions</strong> ("we", "our", or "Company"), located in Palakkad, Kerala, India, collects, uses, protects, and discloses information gathered through our official website and client communication channels.
               </p>
 
               <h3>2. Information We Collect</h3>
@@ -148,7 +174,7 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
 
               <h3>4. Confidentiality and Non-Disclosure</h3>
               <p>
-                All proprietary software concepts, application wireframes, business models, and database schematics shared with SoftAir Solutions Pvt Ltd are treated with strict confidentiality. We routinely execute mutual Non-Disclosure Agreements (NDAs) prior to detailed code and architecture discovery sessions.
+                All proprietary software concepts, application wireframes, business models, and database schematics shared with <strong>SoftAir Solutions</strong> are treated with strict confidentiality. We routinely execute mutual Non-Disclosure Agreements (NDAs) prior to detailed code and architecture discovery sessions.
               </p>
 
               <h3>5. Data Storage and Security Measures</h3>
@@ -163,7 +189,7 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
 
               <h3>7. Contact Our Privacy Team</h3>
               <div className="legal-contact-callout">
-                <strong>SoftAir Solutions Pvt Ltd</strong><br />
+                <strong>SoftAir Solutions</strong><br />
                 Office: Palakkad, Kerala, India<br />
                 Direct Desk: +91 70127 51254 / +91 77366 40292<br />
                 Official Email: <a href="mailto:info@softair.co.in">info@softair.co.in</a>
@@ -179,7 +205,7 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
                 </div>
                 <a 
                   href="/terms-of-service" 
-                  className="btn btn-primary btn-sm" 
+                  className="btn btn-primary btn-sm no-print" 
                   onClick={() => closeModal()}
                   style={{ textDecoration: 'none', padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
                 >
@@ -189,12 +215,12 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
 
               <h3>1. Acceptance of Terms</h3>
               <p>
-                By accessing this website or entering into an engineering engagement with <strong>SoftAir Solutions Pvt Ltd</strong>, you agree to comply with and be bound by these Terms of Service. If you do not agree to these terms, please refrain from using our services.
+                By accessing this website or entering into an engineering engagement with <strong>SoftAir Solutions</strong>, you agree to comply with and be bound by these Terms of Service. If you do not agree to these terms, please refrain from using our services.
               </p>
 
               <h3>2. Services Provided</h3>
               <p>
-                SoftAir Solutions Pvt Ltd provides enterprise technology consulting and software engineering across four primary capabilities:
+                SoftAir Solutions provides enterprise technology consulting and software engineering across four primary capabilities:
               </p>
               <ul>
                 <li><strong>Web Application Development:</strong> High-performance frontend and backend platforms, scalable web portals, and microservices.</li>
@@ -208,7 +234,7 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
                 <strong>Client Ownership:</strong> Upon full and final settlement of all agreed milestone payments, the client receives exclusive ownership of all custom source code, application assets, documentation, and tailored architectures authored specifically for their project.
               </p>
               <p>
-                <strong>Proprietary Tooling:</strong> SoftAir Solutions Pvt Ltd retains ownership over open-source libraries, general developer toolkits, and reusable boilerplate frameworks utilized to assemble the solution.
+                <strong>Proprietary Tooling:</strong> SoftAir Solutions retains ownership over open-source libraries, general developer toolkits, and reusable boilerplate frameworks utilized to assemble the solution.
               </p>
 
               <h3>4. Project Engagements and Payment Terms</h3>
@@ -219,12 +245,12 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
 
               <h3>5. Warranty and Defect Mitigation</h3>
               <p>
-                All delivered custom code packages include a standard 30-day post-launch warranty period during which SoftAir Solutions Pvt Ltd will diagnose and remediate any reproducible bugs or functional defects that deviate from the agreed specifications at no extra charge.
+                All delivered custom code packages include a standard 30-day post-launch warranty period during which SoftAir Solutions will diagnose and remediate any reproducible bugs or functional defects that deviate from the agreed specifications at no extra charge.
               </p>
 
               <h3>6. Limitation of Liability</h3>
               <p>
-                To the maximum extent permitted by applicable law, SoftAir Solutions Pvt Ltd shall not be liable for indirect, punitive, or consequential damages resulting from third-party hosting outages, unauthorized security breaches outside our controlled systems, or data loss caused by client-side modifications.
+                To the maximum extent permitted by applicable law, SoftAir Solutions shall not be liable for indirect, punitive, or consequential damages resulting from third-party hosting outages, unauthorized security breaches outside our controlled systems, or data loss caused by client-side modifications.
               </p>
 
               <h3>7. Governing Law & Jurisdiction</h3>
@@ -242,7 +268,7 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
                 </div>
                 <a 
                   href="/security-standards" 
-                  className="btn btn-primary btn-sm" 
+                  className="btn btn-primary btn-sm no-print" 
                   onClick={() => closeModal()}
                   style={{ textDecoration: 'none', padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
                 >
@@ -283,7 +309,7 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
 
               <h3>5. Vulnerability Disclosure & Incident Response</h3>
               <p>
-                If you believe you have detected a security vulnerability in any application managed by SoftAir Solutions Pvt Ltd, please report it immediately to our security response desk:
+                If you believe you have detected a security vulnerability in any application managed by SoftAir Solutions, please report it immediately to our security response desk:
               </p>
               <div className="legal-contact-callout">
                 <strong>SoftAir Security Advisory Desk</strong><br />
@@ -293,10 +319,15 @@ export default function LegalModal({ activeDoc, setActiveDoc }) {
               </div>
             </div>
           )}
+
+          {/* Printable Document Footer (Visible ONLY in print) */}
+          <div className="print-only-footer">
+            Official Compliance Document · SoftAir Solutions · Palakkad, Kerala, India · info@softair.co.in · softair.co.in
+          </div>
         </div>
 
-        {/* Modal Footer */}
-        <div className="legal-modal-footer">
+        {/* Modal Footer (Screen Only) */}
+        <div className="legal-modal-footer no-print">
           <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
             Have specific legal or compliance questions? Reach out to <a href="mailto:info@softair.co.in" style={{ color: 'var(--primary)', fontWeight: 600 }}>info@softair.co.in</a>
           </span>

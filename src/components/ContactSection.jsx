@@ -99,8 +99,7 @@ export default function ContactSection({ formData, setFormData, onShowToast }) {
       <div className="container contact-grid">
         {/* Left Column: Company Info */}
         <div className="contact-info-card">
-          <span className="section-tag">Connect With Us</span>
-          <h2 className="contact-info-title">
+                    <h2 className="contact-info-title">
             Let's Build Something <br />
             <span className="gradient-text">Exceptional Together</span>
           </h2>
@@ -164,15 +163,6 @@ export default function ContactSection({ formData, setFormData, onShowToast }) {
                 </a>
               </div>
             </div>
-          </div>
-
-          <div style={{ background: 'rgba(0, 210, 255, 0.08)', border: '1px solid var(--border-accent)', borderRadius: 'var(--radius-md)', padding: '1rem 1.25rem', marginTop: '1.5rem' }}>
-            <strong style={{ color: 'var(--cyan)', fontSize: '0.9rem', display: 'block', marginBottom: '0.25rem' }}>
-              ⚡ Rapid Response Guarantee
-            </strong>
-            <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-              All inbound client inquiries receive a dedicated technical response within 2 business hours directly from our engineering desk.
-            </span>
           </div>
         </div>
 

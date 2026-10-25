@@ -27,13 +27,6 @@ export const SFA_COMPARISON_MATRIX = [
         lite: '✓ Offline Sales & Order Capture',
         advanced: '✓ 100% Offline with Auto Cloud Sync',
         mobile: '✓ 100% Offline (Local Device DB)'
-      },
-      {
-        name: 'Cloud Hosting & Central Database',
-        tooltip: 'Cloud infrastructure hosting company database',
-        lite: '✓ Standard Cloud DB',
-        advanced: '✓ Dedicated High-Speed Cloud DB',
-        mobile: '— (No Server Needed)'
       }
     ]
   },
@@ -202,7 +195,7 @@ export const DEFAULT_PRODUCTS = [
           'Full Web Admin Command Center + Executive Target vs. Achievement & Stock Analytics',
           'Android Field Sales App with offline-ready billing, order capture & digital price list catalog',
           'Live GPS Beat route tracking, automated travel allowance (TA/DA) & geofenced check-in',
-          'Multi-tier sales hierarchy, instant WhatsApp invoice/receipt dispatch & Tally/ERP integration'
+          'Multi-tier sales hierarchy, instant WhatsApp invoice/receipt dispatch'
         ]
       },
       {

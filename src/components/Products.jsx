@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchProducts, DEFAULT_PRODUCTS } from '../services/productsApi';
 import ProductDetailModal from './ProductDetailModal';
+import productBg from '../assets/images/Product Background.jpg';
 
 export default function Products({ onRequestDemo }) {
   const [products, setProducts] = useState(DEFAULT_PRODUCTS);
@@ -49,37 +50,22 @@ export default function Products({ onRequestDemo }) {
   };
 
   return (
-    <section className="section" id="products" style={{ background: 'var(--bg-surface-elevated)' }}>
+    <section 
+      className="section products-section" 
+      id="products" 
+      style={{ 
+        backgroundImage: `linear-gradient(180deg, rgba(244, 248, 253, 0.88) 0%, rgba(238, 244, 252, 0.80) 50%, rgba(244, 248, 253, 0.92) 100%), url(${productBg})` 
+      }}
+    >
       <div className="container">
         {/* Section Header */}
         <div className="section-header">
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
-            <span className="section-tag" style={{ margin: 0 }}>Software Suite & Editions</span>
-            {dataSource === 'api' && (
-              <span style={{ fontSize: '0.75rem', background: '#10b981', color: '#ffffff', padding: '2px 8px', borderRadius: '12px', fontWeight: 700 }}>
-                ● API Connected
-              </span>
-            )}
-          </div>
           <h2 className="section-title">
-            Our Ready-to-Deploy <span className="gradient-text">Software Products</span>
+            <span className="gradient-text">Our Products</span>
           </h2>
           <p className="section-subtitle">
-            Engineered by SoftAir Solutions for field sales & order management, clinical healthcare, kitchen operations, and retail checkout. SoftAir SFA provides dual engines for both <strong>Direct Spot Sales / Van Invoicing</strong> and <strong>Advance Retailer Order Booking</strong> across Advanced, Lite, and Mobile App Only editions.
+            Engineered by SoftAir Solutions for <strong>field sales & order management, clinical healthcare, kitchen operations, BeSpoke Software Solutions and many more.</strong>
           </p>
-
-          {/* Category Filter Tabs */}
-          <div className="product-category-filters">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                className={`product-filter-btn ${selectedCategory === cat ? 'active' : ''}`}
-                onClick={() => setSelectedCategory(cat)}
-              >
-                {cat === 'All' ? 'All Products' : cat}
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* Products Grid */}

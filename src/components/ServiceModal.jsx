@@ -19,6 +19,13 @@ export default function ServiceModal({ service, onClose, onApplyToContact }) {
 
   if (!service) return null;
 
+  const deliverables = service.deliverables || service.features || [
+    'Requirements analysis and solution architecture roadmap',
+    'Custom frontend, API backend, and database schema implementation',
+    'Cross-device testing, performance audit, and production deployment',
+    'Post-launch SLA support, maintenance, and system monitoring'
+  ];
+
   return (
     <div 
       className="modal-backdrop open" 
@@ -28,55 +35,70 @@ export default function ServiceModal({ service, onClose, onApplyToContact }) {
       role="dialog"
       aria-modal="true"
     >
-      <div className="modal-box">
-        <button className="modal-close" onClick={onClose} aria-label="Close Modal">
-          &times;
-        </button>
-
-        <div style={{ display: 'inline-block', fontSize: '0.75rem', color: 'var(--primary)', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-          Technical Specifications & Deliverables
+      <div className="service-modal-box">
+        {/* Fixed Header with Close Button */}
+        <div className="service-modal-header">
+          <div className="service-modal-header-text">
+            <span className="service-modal-badge">Technical Specifications & Deliverables</span>
+            <h3 className="service-modal-title">{service.title || service.heading}</h3>
+          </div>
+          <button 
+            className="service-modal-close" 
+            onClick={onClose} 
+            aria-label="Close Modal"
+            title="Close modal"
+          >
+            &times;
+          </button>
         </div>
 
-        <h3 style={{ fontSize: '1.6rem', marginBottom: '0.75rem' }}>
-          {service.title}
-        </h3>
+        {/* Scrollable Body Container */}
+        <div className="service-modal-body">
+          <p className="service-modal-desc">
+            {service.description || service.tagline}
+          </p>
 
-        <p style={{ fontSize: '0.95rem', marginBottom: '1.5rem', lineHeight: '1.6', color: 'var(--text-muted)' }}>
-          {service.description}
-        </p>
+          <div className="service-modal-section-title">
+            Core Service Deliverables:
+          </div>
 
-        <div style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.75rem', color: 'var(--text-main)' }}>
-          Core Service Deliverables:
+          <ul className="service-modal-deliverables-list">
+            {deliverables.map((item, idx) => (
+              <li key={idx} className="service-modal-deliverable-item">
+                <span className="service-modal-check">
+                  <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="2.5 8 6 11.5 13.5 4" />
+                  </svg>
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          {service.tech && (
+            <div className="service-modal-tech-box">
+              <span className="service-modal-tech-label">
+                Technology Stack:
+              </span>
+              <span className="service-modal-tech-value">
+                {service.tech}
+              </span>
+            </div>
+          )}
         </div>
 
-        <ul style={{ marginBottom: '1.5rem', listStyle: 'none' }}>
-          {service.deliverables.map((item, idx) => (
-            <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
-              <span style={{ color: 'var(--primary)', fontWeight: 'bold' }}>✓</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div style={{ background: 'var(--bg-surface-elevated)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', padding: '0.85rem 1.1rem', marginBottom: '1.5rem' }}>
-          <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-dim)', textTransform: 'uppercase', display: 'block', marginBottom: '0.25rem' }}>
-            Technology Stack:
-          </span>
-          <span style={{ fontSize: '0.88rem', color: 'var(--primary)', fontWeight: 600 }}>
-            {service.tech}
-          </span>
+        {/* Sticky Action Footer */}
+        <div className="service-modal-footer">
+          <button 
+            className="btn btn-primary service-modal-cta-btn" 
+            onClick={() => {
+              onApplyToContact(service.id);
+              onClose();
+            }}
+          >
+            Discuss This Solution With Our Team &rarr;
+          </button>
         </div>
-
-        <button 
-          className="btn btn-primary" 
-          style={{ width: '100%' }}
-          onClick={() => {
-            onApplyToContact(service.id);
-            onClose();
-          }}
-        >
-          Discuss This Solution With Our Team &rarr;
-        </button>
       </div>
     </div>
   );

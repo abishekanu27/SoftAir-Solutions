@@ -43,13 +43,35 @@ export default function TermsOfService({ onNavigateHome }) {
 
   return (
     <div className="policy-page">
+      {/* Printable Document Letterhead (Visible ONLY in print) */}
+      <div className="print-only-letterhead">
+        <div className="print-letterhead-top">
+          <div className="print-brand-col">
+            <div className="print-company-name">SOFTAIR SOLUTIONS</div>
+            <div className="print-company-tagline">Enterprise Software Architecture, Custom Applications & IT Services</div>
+            <div className="print-company-sub">Palakkad, Kerala, India · info@softair.co.in · +91 70127 51254 · softair.co.in</div>
+          </div>
+          <div className="print-meta-col">
+            <div><strong>Document Ref:</strong> SAS-TOS-2026-V2</div>
+            <div><strong>Effective Date:</strong> 9 October 2026</div>
+            <div><strong>Entity:</strong> SoftAir Solutions</div>
+            <div><strong>Jurisdiction:</strong> Palakkad, Kerala, India</div>
+          </div>
+        </div>
+        <div className="print-letterhead-rule"></div>
+        <div className="print-title-banner">
+          <h1 className="print-doc-title">TERMS OF SERVICE & CLIENT ENGAGEMENT FRAMEWORK</h1>
+          <span className="print-compliance-seal">STATUTORY CONTRACT DOCUMENT</span>
+        </div>
+      </div>
+
       {/* Sticky Terms Header */}
-      <header className="policy-header-bar">
+      <header className="policy-header-bar no-print">
         <div className="policy-header-content">
           <a href="/" onClick={handleBackHome} className="brand-logo-wrap" aria-label="SoftAir Solutions Home">
             <img 
               src={logoSrc} 
-              alt="SoftAir Solutions Pvt Ltd" 
+              alt="SoftAir Solutions" 
               className="brand-logo-img" 
               style={{ height: '42px' }}
             />
@@ -85,7 +107,7 @@ export default function TermsOfService({ onNavigateHome }) {
       {/* Main Container */}
       <main className="policy-container">
         {/* Breadcrumb Navigation */}
-        <nav aria-label="Breadcrumb" style={{ marginBottom: '1.25rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+        <nav aria-label="Breadcrumb" className="no-print" style={{ marginBottom: '1.25rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
           <a href="/" onClick={handleBackHome} style={{ color: 'var(--primary)', textDecoration: 'none' }}>Home</a>
           <span style={{ margin: '0 0.5rem' }}>/</span>
           <span>Legal & Compliance</span>
@@ -111,7 +133,7 @@ export default function TermsOfService({ onNavigateHome }) {
           <div className="policy-meta">
             <div><strong>Last Updated:</strong> 9 October 2026</div>
             <div>&bull;</div>
-            <div><strong>Entity:</strong> SoftAir Solutions Pvt Ltd</div>
+            <div><strong>Entity:</strong> SoftAir Solutions</div>
             <div>&bull;</div>
             <div><strong>Canonical URL:</strong> softair.co.in/terms-of-service</div>
           </div>
@@ -124,7 +146,7 @@ export default function TermsOfService({ onNavigateHome }) {
         {/* Layout with Sticky Sidebar TOC */}
         <div className="policy-layout">
           {/* Quick Jump Sidebar */}
-          <aside className="policy-sidebar" aria-label="Table of Contents">
+          <aside className="policy-sidebar no-print" aria-label="Table of Contents">
             <div className="policy-sidebar-title">Table of Contents</div>
             <ul className="policy-toc-list">
               {sections.map((item) => (
@@ -445,7 +467,7 @@ export default function TermsOfService({ onNavigateHome }) {
             </section>
 
             {/* Bottom Actions */}
-            <div style={{ marginTop: '2.5rem', paddingTop: '1.75rem', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+            <div className="no-print" style={{ marginTop: '2.5rem', paddingTop: '1.75rem', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
               <a href="/" onClick={handleBackHome} className="btn btn-secondary btn-sm">
                 &larr; Back to SoftAir Solutions Home
               </a>
@@ -457,11 +479,16 @@ export default function TermsOfService({ onNavigateHome }) {
         </div>
       </main>
 
+      {/* Printable Document Footer (Visible ONLY in print) */}
+      <div className="print-only-footer">
+        Official Compliance Document · SoftAir Solutions · Palakkad, Kerala, India · info@softair.co.in · softair.co.in
+      </div>
+
       {/* Policy Page Footer */}
-      <footer style={{ background: 'var(--bg-surface-elevated)', borderTop: '1px solid var(--border-subtle)', padding: '2rem 1.5rem', textAlign: 'center', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+      <footer className="no-print" style={{ background: 'var(--bg-surface-elevated)', borderTop: '1px solid var(--border-subtle)', padding: '2rem 1.5rem', textAlign: 'center', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
         <div style={{ maxWidth: '1080px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
-            &copy; {new Date().getFullYear()} SoftAir Solutions Pvt Ltd. All rights reserved.
+            &copy; {new Date().getFullYear()} SoftAir Solutions. All rights reserved.
           </div>
           <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
             <a href="/" onClick={handleBackHome} style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Home</a>

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import AmbientCanvas from './components/AmbientCanvas';
 import Navbar from './components/Navbar';
-import Main from './components/Main';
+import HeroVideoBanner from './components/HeroVideoBanner';
 import Services from './components/Services';
 import ServiceModal from './components/ServiceModal';
 import LegalModal from './components/LegalModal';
 import Products from './components/Products';
+import WhatWeDo from './components/WhatWeDo';
+import AboutSection from './components/AboutSection';
+import OurStorySection from './components/OurStorySection';
 import Motto from './components/Motto';
-import FaqSection from './components/FaqSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import Toast from './components/Toast';
@@ -15,7 +17,6 @@ import BackToTop from './components/BackToTop';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import SecurityStandards from './pages/SecurityStandards';
-import AboutUs from './pages/AboutUs';
 import Faq from './pages/Faq';
 
 export default function App() {
@@ -27,8 +28,12 @@ export default function App() {
     if (typeof window === 'undefined') return '/';
     const path = window.location.pathname.toLowerCase().replace(/\/$/, '');
     const hash = window.location.hash.toLowerCase();
-    if (path === '/about-us' || path === '/about' || hash === '#about-us' || hash === '#/about-us') {
-      return '/about-us';
+    if (path === '/about-us' || path === '/about' || hash === '#about-us' || hash === '#/about-us' || hash === '#about') {
+      setTimeout(() => {
+        const el = document.getElementById('about');
+        el?.scrollIntoView({ behavior: 'smooth' });
+      }, 120);
+      return '/';
     }
     if (path === '/faq' || hash === '#faq' || hash === '#/faq') {
       return '/faq';
@@ -69,8 +74,12 @@ export default function App() {
     const handleLocationChange = () => {
       const path = window.location.pathname.toLowerCase().replace(/\/$/, '');
       const hash = window.location.hash.toLowerCase();
-      if (path === '/about-us' || path === '/about' || hash === '#about-us' || hash === '#/about-us') {
-        setCurrentRoute('/about-us');
+      if (path === '/about-us' || path === '/about' || hash === '#about-us' || hash === '#/about-us' || hash === '#about') {
+        setCurrentRoute('/');
+        setTimeout(() => {
+          const el = document.getElementById('about');
+          el?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
       } else if (path === '/faq' || hash === '#faq' || hash === '#/faq') {
         setCurrentRoute('/faq');
       } else if (path === '/privacy-policy' || hash === '#privacy-policy' || hash === '#/privacy-policy') {
@@ -129,33 +138,6 @@ Please connect with us to arrange a technical walkthrough and discuss licensing/
     showToast(`Live demo request for ${product ? product.name : 'Product'}${versionLabel} applied to inquiry form!`);
   };
 
-  if (currentRoute === '/about-us') {
-    return (
-      <div className="app-root">
-        <AmbientCanvas />
-        <AboutUs 
-          onNavigateHome={() => navigateTo('/')} 
-          onNavigateContact={() => { 
-            navigateTo('/'); 
-            setTimeout(() => {
-              const el = document.getElementById('contact');
-              el?.scrollIntoView({ behavior: 'smooth' });
-            }, 100); 
-          }}
-          onNavigateProducts={() => { 
-            navigateTo('/'); 
-            setTimeout(() => {
-              const el = document.getElementById('products');
-              el?.scrollIntoView({ behavior: 'smooth' });
-            }, 100); 
-          }}
-        />
-        <Toast message={toastMessage} />
-        <BackToTop />
-      </div>
-    );
-  }
-
   if (currentRoute === '/faq') {
     return (
       <div className="app-root">
@@ -176,7 +158,13 @@ Please connect with us to arrange a technical walkthrough and discuss licensing/
               el?.scrollIntoView({ behavior: 'smooth' });
             }, 100); 
           }}
-          onNavigateAbout={() => navigateTo('/about-us')}
+          onNavigateAbout={() => {
+            navigateTo('/');
+            setTimeout(() => {
+              const el = document.getElementById('about');
+              el?.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+          }}
         />
         <Toast message={toastMessage} />
         <BackToTop />
@@ -222,9 +210,19 @@ Please connect with us to arrange a technical walkthrough and discuss licensing/
       <AmbientCanvas />
       <Navbar onNavigate={navigateTo} />
       <main>
-        <Main />
+        <HeroVideoBanner />
         <Products onRequestDemo={handleRequestProductDemo} />
         <Services onSelectService={setSelectedModalService} />
+        <WhatWeDo onSelectService={setSelectedModalService} />
+        <div id="about" className="about-showcase-wrapper">
+          <AboutSection />
+          <div className="container" style={{ marginTop: '2.5rem' }}>
+            <OurStorySection onNavigateContact={() => {
+              const el = document.getElementById('contact');
+              el?.scrollIntoView({ behavior: 'smooth' });
+            }} />
+          </div>
+        </div>
         <Motto />
         <ContactSection 
           formData={formData} 

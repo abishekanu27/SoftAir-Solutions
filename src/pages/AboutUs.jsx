@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import AboutSection from '../components/AboutSection';
+import OurStorySection from '../components/OurStorySection';
 
 export default function AboutUs({ onNavigateHome, onNavigateContact, onNavigateProducts }) {
   useEffect(() => {
@@ -179,118 +181,13 @@ export default function AboutUs({ onNavigateHome, onNavigateContact, onNavigateP
           <span style={{ color: 'var(--text-main)', fontWeight: 600 }}>About Us</span>
         </nav>
 
-        {/* Hero Section */}
-        <section className="about-hero-card">
-          <div className="about-hero-badge">
-            <span className="pulse-dot"></span>
-            <span>Imagine &bull; Innovate &bull; Transform</span>
-          </div>
+        {/* Recreated Showcase matching reference design */}
+        <div style={{ borderRadius: '24px', overflow: 'hidden', marginBottom: '3rem', border: '1px solid rgba(0, 0, 0, 0.06)' }}>
+          <AboutSection />
+        </div>
 
-          <h1 className="about-hero-title">
-            About Us &mdash; <span className="gradient-text">SoftAir Solutions</span>
-          </h1>
-
-          <p className="about-hero-tagline">
-            Turning Ideas into Digital Solutions.
-          </p>
-
-          <div className="about-hero-text">
-            <p>
-              SoftAir Solutions is an emerging technology company focused on building innovative software, developing modern digital solutions, and helping businesses embrace technology.
-            </p>
-            <p>
-              We aim to simplify business operations, solve real-world challenges, and transform ideas into reliable, scalable, and user-friendly digital products.
-            </p>
-            <p>
-              From web and mobile application development to SaaS products and IT services, our goal is to deliver practical technology solutions that help businesses work smarter, operate more efficiently, and grow with confidence.
-            </p>
-            <div className="about-quote-highlight">
-              <strong>We believe that every great solution begins with an idea.</strong><br />
-              We imagine possibilities, innovate through technology, and transform ideas into reality.
-            </div>
-          </div>
-        </section>
-
-        {/* Our Story */}
-        <section className="about-story-section">
-          <div className="section-header" style={{ textAlign: 'left', marginBottom: '1.5rem' }}>
-            <span className="section-tag">Our Background</span>
-            <h2 className="section-title">
-              Our Story &mdash; <span className="gradient-text">A Vision to Build. A Passion to Innovate.</span>
-            </h2>
-          </div>
-
-          <div className="about-story-grid">
-            <div className="about-story-card">
-              <p>
-                SoftAir Solutions was founded with a vision to turn ideas into meaningful technology solutions.
-              </p>
-              <p>
-                As technology continues to reshape the way businesses operate, we see opportunities to create software that simplifies complex processes, improves productivity, and makes technology more accessible.
-              </p>
-              <p>
-                Our journey begins in <strong>November 2026</strong>, with a commitment to building practical, dependable, and forward-thinking digital solutions.
-              </p>
-              <p>
-                As we begin this journey, we aim to establish lasting relationships with our clients by understanding their needs, developing solutions that address real challenges, and continuously improving the way we work.
-              </p>
-              <p style={{ fontWeight: 600, color: 'var(--primary)', marginTop: '1rem' }}>
-                For us, SoftAir Solutions is more than a technology business. It is an opportunity to transform ideas into products that make a difference.
-              </p>
-            </div>
-
-            <div className="about-milestone-box">
-              <div className="milestone-badge">Launch Horizon</div>
-              <div className="milestone-date">November 2026</div>
-              <p className="milestone-desc">
-                Headquartered in Palakkad, Kerala, engineering purpose-built digital architectures for forward-looking enterprises.
-              </p>
-              <div className="milestone-stats">
-                <div className="milestone-stat-item">
-                  <strong>4+</strong>
-                  <span>Software Products</span>
-                </div>
-                <div className="milestone-stat-item">
-                  <strong>100%</strong>
-                  <span>Dedicated Quality</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Vision & Mission */}
-        <section className="about-vm-section">
-          <div className="about-vm-grid">
-            {/* Vision */}
-            <div className="about-vm-card vision-card">
-              <div className="vm-icon">🔭</div>
-              <span className="section-tag">Guiding Light</span>
-              <h3 className="vm-title">Our Vision</h3>
-              <p className="vm-text">
-                To become a trusted technology partner for businesses by creating innovative digital solutions that simplify operations, inspire progress, and enable sustainable growth.
-              </p>
-            </div>
-
-            {/* Mission */}
-            <div className="about-vm-card mission-card">
-              <div className="vm-icon">🎯</div>
-              <span className="section-tag">Core Purpose</span>
-              <h3 className="vm-title">Our Mission</h3>
-              <p className="vm-text" style={{ marginBottom: '1rem' }}>
-                Our mission is to empower businesses through technology by:
-              </p>
-              <ul className="mission-list">
-                <li>Developing reliable and user-friendly software solutions.</li>
-                <li>Creating modern web and mobile applications.</li>
-                <li>Building scalable SaaS products that address real business needs.</li>
-                <li>Providing practical IT support and technology services.</li>
-                <li>Helping businesses improve efficiency through digital transformation.</li>
-                <li>Continuously learning, innovating, and adapting to emerging technologies.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
+        {/* Our Story — A Vision to Build. A Passion to Innovate. (Recreated matching reference design) */}
+        <OurStorySection onNavigateContact={handleGoContact} />
 
         {/* What We Do */}
         <section className="about-services-section">

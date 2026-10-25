@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import logoSrc from '../assets/images/logo-full.png';
 
 export default function Navbar({ onNavigate }) {
   const [scrolled, setScrolled] = useState(false);
@@ -37,16 +38,17 @@ export default function Navbar({ onNavigate }) {
   const closeMobile = () => setMobileMenuOpen(false);
   const toggleMobile = () => setMobileMenuOpen((prev) => !prev);
 
-  const logoSrc = '/assets/images/logo-full.png';
 
   const handleAboutClick = (e) => {
     e.preventDefault();
     closeMobile();
     if (onNavigate) {
-      onNavigate('/about-us');
-    } else {
-      window.location.href = '/about-us';
+      onNavigate('/');
     }
+    setTimeout(() => {
+      const el = document.getElementById('about');
+      el?.scrollIntoView({ behavior: 'smooth' });
+    }, 60);
   };
 
   const handleFaqClick = (e) => {
@@ -63,7 +65,6 @@ export default function Navbar({ onNavigate }) {
     <>
       {/* Top Notification Announcement */}
       <div className="top-bar">
-        <span className="top-bar-badge">Software Suite</span>
         <span>Ready-to-Deploy Enterprise Software: SFA, Clinical Softwares, KOT & POS Systems.</span>
         <a href="#products" onClick={closeMobile}>Explore Products &rarr;</a>
       </div>
@@ -71,10 +72,10 @@ export default function Navbar({ onNavigate }) {
       {/* Sticky Modern Header — Always on top while scroll */}
       <header className={`site-header ${scrolled ? 'scrolled' : ''}`}>
         <div className="navbar">
-          <a href="#main" className="brand-logo-wrap" aria-label="SoftAir Solutions Home" onClick={closeMobile}>
+          <a href="#main" className="brand-logo-wrap" aria-label="SoftAir Solution Home" onClick={closeMobile}>
             <img 
               src={logoSrc} 
-              alt="SoftAir Solutions Pvt Ltd - IMAGINE. INNOVATE. TRANSFORM." 
+              alt="SoftAir Solution - IMAGINE. INNOVATE. TRANSFORM." 
               className="brand-logo-img" 
             />
           </a>
@@ -85,7 +86,8 @@ export default function Navbar({ onNavigate }) {
               Our Products
             </a>
             <a href="#services" className="nav-link">Services</a>
-            <a href="/about-us" className="nav-link" onClick={handleAboutClick}>About Us</a>
+            <a href="#what-we-do" className="nav-link">What We Do</a>
+            <a href="#about" className="nav-link" onClick={handleAboutClick}>About Us</a>
             <a href="/faq" className="nav-link" onClick={handleFaqClick}>FAQ</a>
           </nav>
 
@@ -130,8 +132,8 @@ export default function Navbar({ onNavigate }) {
             aria-hidden={!mobileMenuOpen}
           >
             <div className="mobile-nav-header">
-              <a href="#main" onClick={closeMobile} className="brand-logo-wrap" aria-label="SoftAir Solutions Home">
-                <img src={logoSrc} alt="SoftAir Solutions" className="brand-logo-img" style={{ height: '38px' }} />
+              <a href="#main" onClick={closeMobile} className="brand-logo-wrap" aria-label="SoftAir Solution Home">
+                <img src={logoSrc} alt="SoftAir Solution" className="brand-logo-img" style={{ height: '38px' }} />
               </a>
               <button 
                 className="mobile-drawer-close" 
@@ -145,16 +147,19 @@ export default function Navbar({ onNavigate }) {
 
             <div className="mobile-nav-links">
               <a href="#products" className="mobile-nav-link" onClick={closeMobile} style={{ fontWeight: 700, color: 'var(--primary)' }}>
-                <span style={{ marginRight: '0.65rem' }}>📦</span> Our Products
+                 Our Products
               </a>
               <a href="#services" className="mobile-nav-link" onClick={closeMobile}>
-                <span style={{ marginRight: '0.65rem' }}>⚙️</span> Services & Capabilities
+                 Services
               </a>
-              <a href="/about-us" className="mobile-nav-link" onClick={handleAboutClick}>
-                <span style={{ marginRight: '0.65rem' }}>🏢</span> About Us
+              <a href="#what-we-do" className="mobile-nav-link" onClick={closeMobile}>
+                 What We Do
+              </a>
+              <a href="#about" className="mobile-nav-link" onClick={handleAboutClick}>
+                 About Us
               </a>
               <a href="/faq" className="mobile-nav-link" onClick={handleFaqClick}>
-                <span style={{ marginRight: '0.65rem' }}>❓</span> Frequently Asked Questions
+                 Frequently Asked Questions
               </a>
             </div>
 
@@ -168,7 +173,7 @@ export default function Navbar({ onNavigate }) {
                 Get Consultation &rarr;
               </a>
               <div className="mobile-nav-contact-hint">
-                <strong>SoftAir Solutions Private Limited</strong>
+                <strong>SoftAir Solutions </strong>
                 <small>Palakkad, Kerala &bull; info@softair.co.in</small>
               </div>
             </div>
